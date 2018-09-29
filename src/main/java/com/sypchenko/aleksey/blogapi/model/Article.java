@@ -19,10 +19,8 @@ public class Article {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "user")
-    //TODO - разобраться как сюда подсунуть юзера
-    //private Long userId;
-    private String user;
+    @Column(name = "user_id")
+    private Long userId;
 
     //TODO - добавить дату и время статьи
 }
