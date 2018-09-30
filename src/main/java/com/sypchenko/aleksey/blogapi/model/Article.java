@@ -3,10 +3,10 @@ package com.sypchenko.aleksey.blogapi.model;
 import lombok.Data;
 
 import javax.persistence.*;
-
+import java.util.Date;
+@Data
 @Entity
 @Table(name = "articles")
-@Data
 public class Article {
     @Id
     @Column(name = "id")
@@ -19,8 +19,11 @@ public class Article {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    //TODO - добавить дату и время статьи
+    @Temporal(TemporalType.DATE)
+    @Column(name = "create_date")
+    private Date createDate;
 }
