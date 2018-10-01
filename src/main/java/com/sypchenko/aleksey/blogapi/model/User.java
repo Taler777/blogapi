@@ -1,9 +1,12 @@
 package com.sypchenko.aleksey.blogapi.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,16 +24,20 @@ public class User {
     @Email
     private String email;
 
-    @Column(name ="password")
+    @JsonIgnore
+    @Column(name = "password")
     private String password;
 
     @Column(name = "name")
+    @Size(min=2, max=50)
     private String name;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "reg_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "reg_date", updatable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm=dd hh:mm:ss")
     private Date registrationDate;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
