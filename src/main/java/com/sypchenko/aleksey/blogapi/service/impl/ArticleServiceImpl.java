@@ -10,8 +10,13 @@ import java.util.List;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
-    @Autowired
+    final
     ArticleRepository articleRepository;
+
+    @Autowired
+    public ArticleServiceImpl(ArticleRepository articleRepository) {
+        this.articleRepository = articleRepository;
+    }
 
     @Override
     public Article addArticle(Article article) {
