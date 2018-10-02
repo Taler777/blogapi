@@ -5,7 +5,6 @@ import com.sypchenko.aleksey.blogapi.service.ArticleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -29,7 +28,7 @@ public class ArticleController {
 
     @PostMapping("/articles/add")
     public String create(@RequestBody Article article) {
-        article.setCreateDate(new Date());
+        //article.setCreateDate(new Date());
         articleService.addArticle(article);
         return "redirect:/articles";
     }
