@@ -2,6 +2,7 @@ package com.sypchenko.aleksey.blogapi.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "users")
+@Builder
 public class User {
     @Id
     @Column(name = "id")
@@ -22,14 +24,14 @@ public class User {
 
     @Column(name = "email")
     @Email
-    private String email;
+    private String login;
 
     @JsonIgnore
     @Column(name = "password")
     private String password;
 
     @Column(name = "name")
-    @Size(min=2, max=50)
+    @Size(min = 2, max = 50)
     private String name;
 
     @Column(name = "description")
@@ -42,4 +44,12 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Article> articles = new ArrayList<>();
+
+    @Enumerated(value = EnumType.STRING)
+    private State state;
+
+    public static User from(UserForm userForm) {
+        return User.builder().login(userForm.getLogin())
+                .password(userForm.getPassword()).build();
+    }
 }
