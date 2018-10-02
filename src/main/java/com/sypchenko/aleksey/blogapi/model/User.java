@@ -2,7 +2,6 @@ package com.sypchenko.aleksey.blogapi.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,7 +14,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "users")
-@Builder
+//@Builder
 public class User {
     @Id
     @Column(name = "id")
@@ -48,8 +47,14 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private State state;
 
-    public static User from(UserForm userForm) {
-        return User.builder().login(userForm.getLogin())
-                .password(userForm.getPassword()).build();
+//    public static User from(String login, String password) {
+//        return User.builder().login(login)
+//                .password(password).build();
+//    }
+
+    public User(@Email String login, String password, Date registrationDate) {
+        this.login = login;
+        this.password = password;
+        this.registrationDate = registrationDate;
     }
 }
