@@ -1,7 +1,7 @@
 package com.sypchenko.aleksey.blogapi.service;
 
-import com.sypchenko.aleksey.blogapi.model.UserForm;
+import java.util.Date;
 
 public interface SignUpService {
-    void signUp(UserForm userForm);
+    void signUp(String login, String password, Date date);
 }
