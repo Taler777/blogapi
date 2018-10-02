@@ -25,14 +25,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/articles/**").permitAll()
-                .antMatchers("/signUp/**").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/articles").permitAll()
+                .antMatchers("/signUp").permitAll()
+                .antMatchers("/users").permitAll()
+                .antMatchers("/articles/add").authenticated()
+                //.anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .usernameParameter("login")
                 .defaultSuccessUrl("/")
-                .loginPage("/login").permitAll()
+                //.loginPage("/login").permitAll()
                 .and()
                 .logout().permitAll();
     }
