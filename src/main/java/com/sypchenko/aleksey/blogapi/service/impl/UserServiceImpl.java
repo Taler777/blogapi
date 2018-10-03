@@ -4,22 +4,29 @@ import com.sypchenko.aleksey.blogapi.model.User;
 import com.sypchenko.aleksey.blogapi.repository.UserRepository;
 import com.sypchenko.aleksey.blogapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public User addUser(User user) {
-        return userRepository.saveAndFlush(user);
+    public String addUser(String login, String password, Date date) {
+        String hashPassword = passwordEncoder.encode(password);
+        User user = new User(login, hashPassword, date);
+        userRepository.saveAndFlush(user);
+        return "redirect:/login";
     }
 
     @Override

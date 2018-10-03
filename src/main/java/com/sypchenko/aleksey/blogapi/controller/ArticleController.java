@@ -33,7 +33,7 @@ public class ArticleController {
         return "redirect:/articles";
     }
 
-    @PutMapping("/articles/{id}")
+    @PutMapping("/articles/{id}/edit")
     public Article update(
             @PathVariable("id") Article articleFromDB,
             @RequestBody Article article) {

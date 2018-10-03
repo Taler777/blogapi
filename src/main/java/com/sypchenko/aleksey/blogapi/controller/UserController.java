@@ -26,5 +26,10 @@ public class UserController {
     public User getOne(@PathVariable("id") User user) {
         return user;
     }
+
+//    @PostMapping("/users/{id}")
+//    public String update(){
+//
+//    }
     //TODO - сделать редактирование юзером своего профиля
 }

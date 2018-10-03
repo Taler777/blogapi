@@ -27,6 +27,7 @@ public class User {
 
     @JsonIgnore
     @Column(name = "password")
+    //@Size(min = 2, max = 50)
     private String password;
 
     @Column(name = "name")
@@ -46,6 +47,9 @@ public class User {
 
     @Enumerated(value = EnumType.STRING)
     private State state;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    List<Token> tokens;
 
 //    public static User from(String login, String password) {
 //        return User.builder().login(login)
