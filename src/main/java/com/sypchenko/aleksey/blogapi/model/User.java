@@ -6,59 +6,48 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "users")
-//@Builder
 public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    //TODO - сделать валидацию email и password
     @Column(name = "email")
     @Email
     private String login;
 
     @JsonIgnore
-    @Column(name = "password")
-    //@Size(min = 2, max = 50)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "name")
-    @Size(min = 2, max = 50)
     private String name;
 
     @Column(name = "description")
     private String description;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    //@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "reg_date", updatable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm=dd hh:mm:ss")
-    private Date registrationDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd hh:mm:ss")
+    private LocalDateTime registrationDate;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Article> articles = new ArrayList<>();
 
     @Enumerated(value = EnumType.STRING)
-    private State state;
+    private Role role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    List<Token> tokens;
-
-//    public static User from(String login, String password) {
-//        return User.builder().login(login)
-//                .password(password).build();
-//    }
-
-    public User(@Email String login, String password, Date registrationDate) {
+    public User(@Email String login, String password) {
         this.login = login;
         this.password = password;
-        this.registrationDate = registrationDate;
+        this.registrationDate = LocalDateTime.now();
+        this.role = Role.USER;
     }
 }

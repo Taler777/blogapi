@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,9 +21,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String addUser(String login, String password, Date date) {
+    public String addUser(String login, String password) {
         String hashPassword = passwordEncoder.encode(password);
-        User user = new User(login, hashPassword, date);
+        User user = new User(login, hashPassword);
         userRepository.saveAndFlush(user);
         return "redirect:/login";
     }
@@ -39,6 +38,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Long id) {
         return userRepository.getOne(id);
+    }
+
+    @Override
+    public User findByLogin(String login) {
+        return userRepository.findByLogin(login);
     }
 
     @Override
