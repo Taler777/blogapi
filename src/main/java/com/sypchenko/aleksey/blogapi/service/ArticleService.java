@@ -5,7 +5,7 @@ import com.sypchenko.aleksey.blogapi.model.Article;
 import java.util.List;
 
 public interface ArticleService {
-    Article addArticle(Article article);
+    Article addArticle(String name, String description);
 
     void deleteArticle(Long id);
 
@@ -14,5 +14,7 @@ public interface ArticleService {
     Article editArticle(Article article);
 
     List<Article> getAllArticle();
+
+    Article findByName ();
 
 }

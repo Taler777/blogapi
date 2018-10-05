@@ -19,7 +19,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Article addArticle(Article article) {
+    public Article addArticle(String name, String description) {
+        Article article=new Article(name, description);
         return articleRepository.saveAndFlush(article);
     }
 

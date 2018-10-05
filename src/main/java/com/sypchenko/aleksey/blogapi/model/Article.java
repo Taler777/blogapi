@@ -11,7 +11,13 @@ import java.util.Date;
 @Entity
 @Table(name = "articles")
 public class Article {
+    public Article(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     @Id
+
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

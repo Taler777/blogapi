@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class User {
 
     @JsonIgnore
     @Column(name = "password", nullable = false)
+    @Size(min=5, message = "password must be at least 5 characters")
     private String password;
 
     @Column(name = "name")
